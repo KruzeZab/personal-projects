@@ -1,4 +1,5 @@
 import { ISignup, ISignupErrors } from './auth';
+import { PaginationQuery } from './pagination';
 
 export interface IRealtorSignup extends ISignup {
   photo: string;
@@ -12,4 +13,10 @@ export interface IRealtorSignupErrors extends ISignupErrors {
   phone: string[];
   photo: string[];
   rating: string[];
+}
+
+export interface GetAllRealtorsQuery extends PaginationQuery {}
+
+export interface GetSearchRealtorsQuery extends PaginationQuery {
+  username: string;
 }

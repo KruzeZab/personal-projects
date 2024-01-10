@@ -1,46 +1,37 @@
 import bcrypt from 'bcrypt';
 import { ILogin } from '../interface/auth';
 import { BadRequestError } from '../error';
-import { AppDataSource } from '../database/data-source';
-import { Repository } from 'typeorm';
 import { ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY } from '../constant';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import { IJwtPayload } from '../interface/jwt';
-import User from '../model/User.model';
 import Realtor from '../model/Realtor.model';
-import { IRealtorSignup, IRealtorSignupErrors } from '../interface/realtor';
+import {
+  GetAllRealtorsQuery,
+  GetSearchRealtorsQuery,
+  IRealtorSignup,
+  IRealtorSignupErrors,
+} from '../interface/realtor';
 import Photo from '../model/Photo.model';
+import { buildMeta, getPaginationOptions } from '../util/pagination';
 
 const SALT_ROUNDS = 10;
 
 class RealtorService {
-  private static realtorRepository: Repository<Realtor> =
-    AppDataSource.getRepository(Realtor);
-
-  private static getRealtorRepository(): Repository<Realtor> {
-    if (!RealtorService.realtorRepository) {
-      RealtorService.realtorRepository = AppDataSource.getRepository(Realtor);
-    }
-    return RealtorService.realtorRepository;
-  }
-
-  private static async findUserByEmail(email: string): Promise<Realtor | null> {
+  private static async findByEmail(email: string): Promise<Realtor | null> {
     try {
-      const userRepository = RealtorService.getRealtorRepository();
-      const user = await userRepository.findOne({ where: { email } });
+      const user = await Realtor.findOne({ where: { email } });
       return user || null;
     } catch (error) {
       throw new BadRequestError(error + '');
     }
   }
 
-  private static async findUserByUsername(
+  private static async findByUsername(
     username: string,
-  ): Promise<User | null> {
+  ): Promise<Realtor | null> {
     try {
-      const userRepository = RealtorService.getRealtorRepository();
-      const user = await userRepository.findOne({ where: { username } });
+      const user = await Realtor.findOne({ where: { username } });
       return user || null;
     } catch (error) {
       throw new BadRequestError(error + '');
@@ -62,9 +53,9 @@ class RealtorService {
     const { username, email, password, confirmPassword } = body;
 
     // Check if email or username already exists
-    const existingUserByEmail = await RealtorService.findUserByEmail(email);
+    const existingUserByEmail = await RealtorService.findByEmail(email);
     const existingUserByUsername =
-      await RealtorService.findUserByUsername(username);
+      await RealtorService.findByUsername(username);
 
     if (existingUserByEmail) {
       errors.email.push('User with this email already exists');
@@ -89,24 +80,22 @@ class RealtorService {
 
       const hashedPassword = await bcrypt.hash(body.password, SALT_ROUNDS);
 
-      const realtorRepository = RealtorService.getRealtorRepository();
-      const photoRepository = AppDataSource.getRepository(Photo);
-
       // Create Photo
-      const photo = new Photo();
-      photo.src = body.photo;
-      photo.alt = 'Photo description';
+      const photo = Photo.create({
+        src: body.photo,
+        alt: 'Photo description',
+      });
 
       // Create user and pass photo created
-      const realtor = realtorRepository.create({
+      const realtor = Realtor.create({
         ...body,
         photo: photo,
         password: hashedPassword,
       });
 
       // Save photo
-      await photoRepository.save(photo);
-      await realtorRepository.save(realtor);
+      await photo.save();
+      await realtor.save();
 
       return {
         data: realtor,
@@ -119,7 +108,7 @@ class RealtorService {
 
   static async login(body: ILogin) {
     // Check if email or username already exists
-    const user = await RealtorService.findUserByEmail(body.email);
+    const user = await RealtorService.findByEmail(body.email);
 
     if (!user) {
       throw new BadRequestError('User doesnt exist');
@@ -170,7 +159,7 @@ class RealtorService {
     const decoded = jwt.verify(refresh, refreshTokenSecret) as IJwtPayload;
 
     // Check if the user exists
-    const realtor = await RealtorService.findUserByEmail(decoded.email);
+    const realtor = await RealtorService.findByEmail(decoded.email);
 
     if (!realtor) {
       throw new BadRequestError('User not found');
@@ -179,6 +168,74 @@ class RealtorService {
     const accessToken = RealtorService.generateAccessToken(realtor);
 
     return accessToken;
+  }
+
+  static async getAll(query: GetAllRealtorsQuery) {
+    const { page, size } = query;
+
+    // Calculate skip and limit based on page and size
+    const { limit, offset } = getPaginationOptions({ page, size });
+
+    try {
+      // Query the database with skip and limit
+      const realtors = await Realtor.createQueryBuilder('realtor')
+        .offset(offset)
+        .limit(limit)
+        .getMany();
+      const total = await Realtor.count();
+
+      const meta = buildMeta(total, size, page);
+
+      return {
+        data: realtors,
+        meta,
+      };
+    } catch (error) {
+      throw new BadRequestError(error + '');
+    }
+  }
+
+  static async getById(realtorId: number) {
+    try {
+      const realtor = await Realtor.findOneBy({ id: realtorId });
+      if (!realtor) {
+        throw new BadRequestError('Realtor not found');
+      }
+      return realtor;
+    } catch (error) {
+      throw new BadRequestError('Error fetching realtor: ' + error);
+    }
+  }
+
+  static async search(query: GetSearchRealtorsQuery) {
+    const { page, size, username } = query;
+
+    // Calculate skip and limit based on page and size
+    const { limit, offset } = getPaginationOptions({ page, size });
+
+    try {
+      // Query the database with skip and limit
+      const realtors = Realtor.createQueryBuilder('realtor')
+        .offset(offset)
+        .limit(limit);
+
+      if (username) {
+        realtors.andWhere('realtor.name ILIKE :username', {
+          username: `%${username}%`,
+        });
+      }
+
+      const total = await Realtor.count();
+
+      const meta = buildMeta(total, size, page);
+
+      return {
+        data: realtors,
+        meta,
+      };
+    } catch (error) {
+      throw new BadRequestError(error + '');
+    }
   }
 }
 

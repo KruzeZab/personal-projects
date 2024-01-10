@@ -1,8 +1,6 @@
 import bcrypt from 'bcrypt';
 import { ILogin, ISignup, ISignupErrors } from '../interface/auth';
 import { BadRequestError } from '../error';
-import { AppDataSource } from '../database/data-source';
-import { Repository } from 'typeorm';
 import { ACCESS_TOKEN_EXPIRY, REFRESH_TOKEN_EXPIRY } from '../constant';
 import jwt from 'jsonwebtoken';
 import config from '../config';
@@ -12,32 +10,19 @@ import User from '../model/User.model';
 const SALT_ROUNDS = 10;
 
 class UserService {
-  private static userRepository: Repository<User> =
-    AppDataSource.getRepository(User);
-
-  private static getUserRepository(): Repository<User> {
-    if (!UserService.userRepository) {
-      UserService.userRepository = AppDataSource.getRepository(User);
-    }
-    return UserService.userRepository;
-  }
-
-  private static async findUserByEmail(email: string): Promise<User | null> {
+  private static async findByEmail(email: string): Promise<User | null> {
     try {
-      const userRepository = UserService.getUserRepository();
-      const user = await userRepository.findOne({ where: { email } });
+      const user = await User.findOne({ where: { email } });
       return user || null;
     } catch (error) {
       throw new BadRequestError(error + '');
     }
   }
 
-  private static async findUserByUsername(
-    username: string,
-  ): Promise<User | null> {
+  private static async findByUsername(username: string): Promise<User | null> {
     try {
-      const userRepository = UserService.getUserRepository();
-      const user = await userRepository.findOne({ where: { username } });
+      // const userRepository = UserService.getUserRepository();
+      const user = await User.findOne({ where: { username } });
       return user || null;
     } catch (error) {
       throw new BadRequestError(error + '');
@@ -55,9 +40,8 @@ class UserService {
     const { username, email, password, confirmPassword } = body;
 
     // Check if email or username already exists
-    const existingUserByEmail = await UserService.findUserByEmail(email);
-    const existingUserByUsername =
-      await UserService.findUserByUsername(username);
+    const existingUserByEmail = await UserService.findByEmail(email);
+    const existingUserByUsername = await UserService.findByUsername(username);
 
     if (existingUserByEmail) {
       errors.email.push('User with this email already exists');
@@ -82,11 +66,8 @@ class UserService {
 
       const hashedPassword = await bcrypt.hash(body.password, SALT_ROUNDS);
 
-      const userRepository = UserService.getUserRepository();
-
-      const user = userRepository.create({ ...body, password: hashedPassword });
-      await userRepository.save(user);
-      console.log(user);
+      const user = User.create({ ...body, password: hashedPassword });
+      await user.save();
 
       return {
         data: user,
@@ -99,7 +80,7 @@ class UserService {
 
   static async login(body: ILogin) {
     // Check if email or username already exists
-    const user = await UserService.findUserByEmail(body.email);
+    const user = await UserService.findByEmail(body.email);
 
     if (!user) {
       throw new BadRequestError('User doesnt exist');
@@ -150,7 +131,7 @@ class UserService {
     const decoded = jwt.verify(refresh, refreshTokenSecret) as IJwtPayload;
 
     // Check if the user exists
-    const user = await UserService.findUserByEmail(decoded.email);
+    const user = await UserService.findByEmail(decoded.email);
 
     if (!user) {
       throw new BadRequestError('User not found');

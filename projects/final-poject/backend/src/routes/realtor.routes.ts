@@ -17,4 +17,7 @@ router.post(
   RealtorController.login,
 );
 
+router.get('/', RealtorController.getAll);
+router.get('/:id', RealtorController.get);
+
 export default router;
