@@ -1,11 +1,9 @@
-import { States } from '../model/Listing.model';
 import { PaginationQuery } from './pagination';
 
 export interface IListing {
   title: string;
   photos: string[];
   realtorId: number;
-  title: string;
   address: string;
   city: string;
   state: States;
@@ -23,7 +21,6 @@ export interface IListingErrors {
   title: string[];
   photos: string[];
   realtorId: string[];
-  title: string[];
   address: string[];
   city: string[];
   state: string[];
