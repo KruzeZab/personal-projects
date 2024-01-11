@@ -44,3 +44,13 @@ export interface GetSearchListingQuery extends PaginationQuery {
   city: string;
   state: States;
 }
+
+export enum States {
+  PROVINCE_1 = 'province_1',
+  PROVINCE_2 = 'province_2',
+  BAGMATI = 'bagmati',
+  GANDAKI = 'gandaki',
+  PROVINCE_5 = 'province_5',
+  KARNALI = 'karnali',
+  SUDUR_PASCHIM = 'sudur_paschim',
+}

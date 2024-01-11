@@ -9,16 +9,7 @@ import {
 import Photo from './Photo.model';
 import BaseModel from './BaseModel';
 import Realtor from './Realtor.model';
-
-export enum States {
-  PROVINCE_1 = 'province_1',
-  PROVINCE_2 = 'province_2',
-  BAGMATI = 'bagmati',
-  GANDAKI = 'gandaki',
-  PROVINCE_5 = 'province_5',
-  KARNALI = 'karnali',
-  SUDUR_PASCHIM = 'sudur_paschim',
-}
+import { States } from '../interface/listing';
 
 @Entity('Listing')
 class Listing extends BaseModel {
