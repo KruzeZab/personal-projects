@@ -6,15 +6,12 @@ import {
   GetSearchListingQuery,
   IListing,
 } from '../interface/listing';
-import Photo from '../model/Photo.model';
 import Realtor from '../model/Realtor.model';
+import { Like } from 'typeorm';
 
 class ListingService {
   static async create(body: IListing) {
     try {
-      // Create Photos from photo array
-      const listingPhotos: Photo[] = [];
-
       const realtor = await Realtor.findOneBy({ id: body.realtorId });
 
       if (!realtor) {
@@ -24,25 +21,11 @@ class ListingService {
       // Create Listing
       const listing = Listing.create({
         ...body,
-        photos: [],
         realtor,
       });
 
       // Save the listing to the database
       await listing.save();
-
-      await Promise.all(
-        body.photos.map(async (photoUrl) => {
-          const newPhoto = Photo.create({
-            src: photoUrl,
-            alt: 'Photo description',
-          });
-          newPhoto.listing = listing;
-          await newPhoto.save();
-          listingPhotos.push(newPhoto);
-        }),
-      );
-      listing.photos = listingPhotos;
 
       return {
         data: listing,
@@ -61,12 +44,10 @@ class ListingService {
 
     try {
       // Query the database with skip and limit
-      const listings = await Listing.createQueryBuilder('listing')
+      const [listings, total] = await Listing.createQueryBuilder('listing')
         .offset(offset)
         .limit(limit)
-        .getMany();
-
-      const total = await Listing.count();
+        .getManyAndCount();
 
       const meta = buildMeta(total, size, page);
 
@@ -98,31 +79,27 @@ class ListingService {
     const { limit, offset } = getPaginationOptions({ page, size });
 
     try {
-      // Query the database with skip and limit
-      const listings = Listing.createQueryBuilder('listing')
-        .offset(offset)
-        .limit(limit);
+      // Start building the query with offset and limit
 
-      if (title) {
-        listings.andWhere('listing.name ILIKE :title', {
-          title: `%${title}%`,
-        });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const whereClause: any = {};
+      if (title !== '') {
+        whereClause.title = Like(`%${title}%`);
+      }
+      if (state !== '') {
+        whereClause.state = state;
+      }
+      if (city !== '') {
+        whereClause.city = Like(`%${city}%`);
       }
 
-      if (city) {
-        listings.andWhere('listing.name ILIKE :city', {
-          city: `%${city}%`,
-        });
-      }
+      const [listings, total] = await Listing.findAndCount({
+        where: whereClause,
+        take: limit,
+        skip: offset,
+      });
 
-      if (state) {
-        listings.andWhere('listing.state = :state', {
-          state,
-        });
-      }
-
-      const total = await Listing.count();
-
+      // Build meta information for pagination
       const meta = buildMeta(total, size, page);
 
       return {

@@ -1,4 +1,4 @@
-import { ISignup, ISignupErrors } from './auth';
+import { ISignup } from './auth';
 import { PaginationQuery } from './pagination';
 
 export interface IRealtorSignup extends ISignup {
@@ -6,13 +6,6 @@ export interface IRealtorSignup extends ISignup {
   phone: string;
   website: string;
   rating: number;
-}
-
-export interface IRealtorSignupErrors extends ISignupErrors {
-  website: string[];
-  phone: string[];
-  photo: string[];
-  rating: string[];
 }
 
 export interface GetAllRealtorsQuery extends PaginationQuery {}

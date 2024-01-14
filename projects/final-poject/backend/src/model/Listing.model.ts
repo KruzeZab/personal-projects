@@ -1,21 +1,9 @@
-import {
-  Column,
-  Entity,
-  Index,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-} from 'typeorm';
-import Photo from './Photo.model';
+import { Column, Entity, Index, JoinColumn, ManyToOne } from 'typeorm';
 import BaseModel from './BaseModel';
 import Realtor from './Realtor.model';
-import { States } from '../interface/listing';
 
 @Entity('Listing')
 class Listing extends BaseModel {
-  @OneToMany(() => Photo, (photo) => photo.listing)
-  photos: Photo[];
-
   @ManyToOne(() => Realtor, (realtor: Realtor) => realtor.listings, {
     cascade: true,
     eager: true,
@@ -29,7 +17,7 @@ class Listing extends BaseModel {
   @Column()
   title: string;
 
-  @Column()
+  @Column({ default: '' })
   address: string;
 
   @Index()
@@ -37,11 +25,11 @@ class Listing extends BaseModel {
   city: string;
 
   @Index()
-  @Column({ type: 'enum', enum: States, default: States.PROVINCE_1 })
-  state: States;
+  @Column({ default: 'province_1' })
+  state: string;
 
   @Column()
-  zicpode: string;
+  zipcode: string;
 
   @Column()
   description: string;
@@ -64,6 +52,27 @@ class Listing extends BaseModel {
 
   @Column({ type: 'float' })
   lot_size: number;
+
+  @Column({ default: '' })
+  photo_main: string;
+
+  @Column({ default: '' })
+  photo_1: string;
+
+  @Column({ default: '' })
+  photo_2: string;
+
+  @Column({ default: '' })
+  photo_3: string;
+
+  @Column({ default: '' })
+  photo_4: string;
+
+  @Column({ default: '' })
+  photo_5: string;
+
+  @Column({ default: '' })
+  photo_6: string;
 }
 
 export default Listing;

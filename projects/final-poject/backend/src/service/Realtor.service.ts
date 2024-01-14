@@ -10,9 +10,7 @@ import {
   GetAllRealtorsQuery,
   GetSearchRealtorsQuery,
   IRealtorSignup,
-  IRealtorSignupErrors,
 } from '../interface/realtor';
-import Photo from '../model/Photo.model';
 import { buildMeta, getPaginationOptions } from '../util/pagination';
 
 const SALT_ROUNDS = 10;
@@ -39,17 +37,6 @@ class RealtorService {
   }
 
   private static async validateSignup(body: IRealtorSignup) {
-    const errors: IRealtorSignupErrors = {
-      email: [],
-      username: [],
-      password: [],
-      confirmPassword: [],
-      website: [],
-      phone: [],
-      photo: [],
-      rating: [],
-    };
-
     const { username, email, password, confirmPassword } = body;
 
     // Check if email or username already exists
@@ -58,19 +45,15 @@ class RealtorService {
       await RealtorService.findByUsername(username);
 
     if (existingUserByEmail) {
-      errors.email.push('User with this email already exists');
+      throw new BadRequestError('User with this email already exists');
     }
     if (existingUserByUsername) {
-      errors.username.push('User with this username already exists');
+      throw new BadRequestError('User with this username already exists');
     }
 
     // Check if password and confirm password match
     if (password !== confirmPassword) {
-      errors.password.push('Password and confirm password do not match');
-    }
-
-    if (Object.values(errors).some((array) => array.length > 0)) {
-      throw new BadRequestError(JSON.stringify(errors));
+      throw new BadRequestError('Password and confirm password do not match');
     }
   }
 
@@ -81,20 +64,14 @@ class RealtorService {
       const hashedPassword = await bcrypt.hash(body.password, SALT_ROUNDS);
 
       // Create Photo
-      const photo = Photo.create({
-        src: body.photo,
-        alt: 'Photo description',
-      });
 
       // Create user and pass photo created
       const realtor = Realtor.create({
         ...body,
-        photo: photo,
         password: hashedPassword,
       });
 
       // Save photo
-      await photo.save();
       await realtor.save();
 
       return {
@@ -235,6 +212,31 @@ class RealtorService {
       };
     } catch (error) {
       throw new BadRequestError(error + '');
+    }
+  }
+
+  static async getUserInfoFromToken(accessToken: string) {
+    try {
+      const decoded = jwt.verify(
+        accessToken,
+        config.jwt.accessTokenSecret,
+      ) as IJwtPayload;
+
+      // Check if the user exists
+      const user = await RealtorService.findByEmail(decoded.email);
+
+      if (!user) {
+        throw new BadRequestError('User not found');
+      }
+
+      return {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        // Add any other user information you want to include
+      };
+    } catch (error) {
+      throw new BadRequestError('Invalid access token');
     }
   }
 }

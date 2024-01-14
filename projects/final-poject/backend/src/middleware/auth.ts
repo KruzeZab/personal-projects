@@ -2,8 +2,7 @@ import jwt from 'jsonwebtoken';
 import { NextFunction, Response } from 'express';
 
 import config from '../config';
-import { NoPermissionError, UnauthenticatedError } from '../error';
-import { Roles } from '../interface/auth';
+import { UnauthenticatedError } from '../error';
 
 // eslint-disable-next-line
 export const auth = async (req: any, res: Response, next: NextFunction) => {
@@ -23,15 +22,3 @@ export const auth = async (req: any, res: Response, next: NextFunction) => {
 
   next();
 };
-
-export const checkRole =
-  // eslint-disable-next-line
-  (requiredRole: string) => (req: any, res: Response, next: NextFunction) => {
-    const userRole = req.user ? req.user.role : Roles.USER;
-
-    if (userRole === requiredRole) {
-      next();
-    } else {
-      next(new NoPermissionError('Insufficient permissions'));
-    }
-  };

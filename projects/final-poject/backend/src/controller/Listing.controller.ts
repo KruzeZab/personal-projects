@@ -22,6 +22,7 @@ class ListingController {
   }
   static async getAll(req: Request, res: Response, next: NextFunction) {
     const query = req.query;
+    console.log(query);
     try {
       const data = await ListingService.getAll(
         query as unknown as GetAllListingQuery,
@@ -44,6 +45,7 @@ class ListingController {
 
   static async search(req: Request, res: Response, next: NextFunction) {
     const query = req.query;
+    console.log(req.query);
 
     try {
       const data = await ListingService.search(

@@ -7,6 +7,7 @@ import {
 } from '../interface/realtor';
 import RealtorService from '../service/Realtor.service';
 import { ILogin } from '../interface/auth';
+import { BadRequestError } from '../error';
 
 class RealtorController {
   static async signup(req: Request, res: Response, next: NextFunction) {
@@ -64,6 +65,42 @@ class RealtorController {
         query as unknown as GetSearchRealtorsQuery,
       );
       return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getUserInfoFromToken(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const accessToken = req.headers.authorization?.split(' ')[1];
+
+      if (!accessToken) {
+        throw new BadRequestError('Access token not provided');
+      }
+
+      const userInfo = await RealtorService.getUserInfoFromToken(accessToken);
+      res.json(userInfo);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async refreshToken(req: Request, res: Response, next: NextFunction) {
+    const refreshToken = req.body.refreshToken;
+    if (!refreshToken) {
+      return res
+        .status(HttpStatus.BAD_REQUEST)
+        .json({ message: 'Refresh token is missing' });
+    }
+    try {
+      const accessToken = await RealtorService.refreshToken(refreshToken);
+      return res
+        .status(HttpStatus.ACCEPTED)
+        .json({ success: true, accessToken });
     } catch (error) {
       next(error);
     }

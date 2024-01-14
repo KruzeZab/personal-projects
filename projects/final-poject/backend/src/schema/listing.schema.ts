@@ -1,7 +1,13 @@
 import Joi from 'joi';
 
 export const getListingSchema = Joi.object({
-  photos: Joi.array().items(Joi.string()).required(),
+  photo_main: Joi.string().required(),
+  photo_1: Joi.string().optional(),
+  photo_2: Joi.string().optional(),
+  photo_3: Joi.string().optional(),
+  photo_4: Joi.string().optional(),
+  photo_5: Joi.string().optional(),
+  photo_6: Joi.string().optional(),
   realtorId: Joi.number().required(),
   title: Joi.string().required(),
   address: Joi.string().required(),
@@ -10,14 +16,14 @@ export const getListingSchema = Joi.object({
     .valid(
       'province_1',
       'province_2',
-      'bagmati',
-      'gandaki',
+      'province_3',
+      'province_4',
       'province_5',
-      'karnali',
-      'sudur_paschim',
+      'province_6',
+      'province_7',
     )
     .default('province_1'),
-  zicpode: Joi.string().required(),
+  zipcode: Joi.string().required(),
   description: Joi.string().required(),
   price: Joi.number().required(),
   bedrooms: Joi.number().integer().required(),

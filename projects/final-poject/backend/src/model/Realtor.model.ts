@@ -1,13 +1,17 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
-import User from './User.model';
-import Photo from './Photo.model';
+import { Column, Entity, OneToMany } from 'typeorm';
 import Listing from './Listing.model';
+import BaseModel from './BaseModel';
 
 @Entity('Realtor')
-class Realtor extends User {
-  @OneToOne(() => Photo, { cascade: true, eager: true, nullable: false })
-  @JoinColumn()
-  photo: Photo;
+class Realtor extends BaseModel {
+  @Column({ unique: true })
+  username: string;
+
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
 
   @OneToMany(() => Listing, (listing) => listing.realtor)
   listings: Listing[];
@@ -20,6 +24,9 @@ class Realtor extends User {
 
   @Column({ default: 0 })
   rating: number;
+
+  @Column({ default: '' })
+  photo: string;
 }
 
 export default Realtor;

@@ -11,14 +11,8 @@ export interface ILogin {
 }
 
 export interface ISignupErrors {
-  email: string[];
-  username: string[];
-  password: string[];
-  confirmPassword: string[];
-}
-
-export enum Roles {
-  USER = 'user',
-  REALTOR = 'realtor',
-  ADMIN = 'admin',
+  email: string;
+  username: string;
+  password: string;
+  confirmPassword: string;
 }
