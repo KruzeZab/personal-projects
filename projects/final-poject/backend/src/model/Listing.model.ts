@@ -54,9 +54,6 @@ class Listing extends BaseModel {
   lot_size: number;
 
   @Column({ default: '' })
-  photo_main: string;
-
-  @Column({ default: '' })
   photo_1: string;
 
   @Column({ default: '' })
@@ -73,6 +70,9 @@ class Listing extends BaseModel {
 
   @Column({ default: '' })
   photo_6: string;
+
+  @Column({ default: '' })
+  photo_7: string;
 }
 
 export default Listing;

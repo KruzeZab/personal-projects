@@ -1,3 +1,4 @@
+import axios from 'axios';
 import server from '../../axios/server';
 import { ROUTES } from '../../constants';
 import { renderAlert, renderFooter, renderHeader } from '../../utils';
@@ -17,47 +18,22 @@ class Signup {
   signup = async (event: Event) => {
     event.preventDefault();
 
-    const username =
-      this.signupForm.querySelector<HTMLInputElement>(
-        '#user_name'
-      )!.value;
-    const email =
-      this.signupForm.querySelector<HTMLInputElement>(
-        '#email'
-      )!.value;
-    const password =
-      this.signupForm.querySelector<HTMLInputElement>(
-        '#pass_word'
-      )!.value;
-    const photo =
-      this.signupForm.querySelector<HTMLInputElement>(
-        '#photo'
-      )!.value;
+    const form = new FormData(event.target as HTMLFormElement);
+    let formValues: any = {};
 
-    const phone =
-      this.signupForm.querySelector<HTMLInputElement>(
-        '#phone'
-      )!.value;
+    form.forEach((value, key) => {
+      formValues[key] = value;
+    });
 
-    const website =
-      this.signupForm.querySelector<HTMLInputElement>(
-        '#website'
-      )!.value;
+    const photoResponse = await this.uploadToCloudinary(
+      form.get('photo') as File
+    );
 
-    const confirmPassword =
-      this.signupForm.querySelector<HTMLInputElement>(
-        '#c_pass_word'
-      )!.value;
-
-    const formValues = {
-      username,
-      email,
-      password,
-      confirmPassword,
-      photo: 'https://picsum.photos/400',
-      phone,
-      website,
+    formValues = {
+      ...formValues,
+      photo: photoResponse,
     };
+
     try {
       await server.post('/realtors/signup', formValues);
       window.location.href = ROUTES.loginPage;
@@ -66,6 +42,28 @@ class Signup {
       renderAlert(errorMsg, 'danger');
     }
   };
+
+  async uploadToCloudinary(image: File) {
+    const cloudName = import.meta.env.CLOUD_NAME;
+    const formData = new FormData();
+    formData.append('upload_preset', 'final_project');
+    formData.append('file', image);
+
+    try {
+      const response = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=994162263426642`,
+        formData
+      );
+
+      // Assuming the response data contains the URL of the uploaded image
+      const imageUrl = response.data.url;
+
+      return imageUrl;
+    } catch (error) {
+      // Handle error if the upload fails
+      console.error('Error uploading image:', error);
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -1,5 +1,5 @@
 export const ROUTES = {
-  homePage: 'index.html',
+  homePage: '/index.html',
   aboutPage: '/src/pages/AboutPage/index.html',
   addListingPage: '/src/pages/AddListingPage/index.html',
   ListingDetailPage: '/src/pages/ListingDetailPage/index.html',

@@ -22,9 +22,6 @@ class Realtor extends BaseModel {
   @Column()
   website: string;
 
-  @Column({ default: 0 })
-  rating: number;
-
   @Column({ default: '' })
   photo: string;
 }

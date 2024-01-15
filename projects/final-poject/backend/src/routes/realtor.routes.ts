@@ -19,8 +19,8 @@ router.post(
 
 router.get('/detail', RealtorController.getUserInfoFromToken);
 router.get('/', RealtorController.getAll);
-router.get('/:id', RealtorController.get);
-
+router.get('/search', RealtorController.search);
 router.get('/refresh', RealtorController.refreshToken);
+router.get('/:id', RealtorController.get);
 
 export default router;

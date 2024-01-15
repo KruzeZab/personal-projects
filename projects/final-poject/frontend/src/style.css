@@ -332,3 +332,10 @@ body {
 /* from ipad pro where nav items are shown */
 @media (min-width: 992px) {
 }
+
+body {
+  display: flex;
+  min-height: 100vh;
+  justify-content: space-between;
+  flex-direction: column;
+}

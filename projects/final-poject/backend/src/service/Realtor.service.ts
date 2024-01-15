@@ -12,6 +12,7 @@ import {
   IRealtorSignup,
 } from '../interface/realtor';
 import { buildMeta, getPaginationOptions } from '../util/pagination';
+import { Like } from 'typeorm';
 
 const SALT_ROUNDS = 10;
 
@@ -191,19 +192,22 @@ class RealtorService {
     const { limit, offset } = getPaginationOptions({ page, size });
 
     try {
-      // Query the database with skip and limit
-      const realtors = Realtor.createQueryBuilder('realtor')
-        .offset(offset)
-        .limit(limit);
+      // Start building the query with offset and limit
 
-      if (username) {
-        realtors.andWhere('realtor.name ILIKE :username', {
-          username: `%${username}%`,
-        });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const whereClause: any = {};
+
+      if (username !== '') {
+        whereClause.username = Like(`%${username}%`);
       }
 
-      const total = await Realtor.count();
+      const [realtors, total] = await Realtor.findAndCount({
+        where: whereClause,
+        take: limit,
+        skip: offset,
+      });
 
+      // Build meta information for pagination
       const meta = buildMeta(total, size, page);
 
       return {
