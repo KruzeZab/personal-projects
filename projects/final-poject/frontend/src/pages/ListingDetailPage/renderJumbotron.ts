@@ -18,7 +18,7 @@ function renderJumbotron(listing: IListingsProps) {
       </h1>
       <p class="mt-3" style="font-size: 32px">
         <i class="fas fa-map-marker-alt res-text-primary"></i>
-        <span class="city">${listing.city}</span>, <span class="state"></span>,
+        <span class="city">${listing.city}</span>, <span class="state">${listing.state}</span>,
         <span class="zipcode">${listing.zipcode}</span>
       </p>
     </div>

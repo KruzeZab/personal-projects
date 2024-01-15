@@ -91,15 +91,14 @@ class AddListingPage extends Base {
     const results = [];
 
     for (let i = 0; i < imageFiles.length; i++) {
-      const cloudName = import.meta.env.CLOUD_NAME;
-      const apiKey = import.meta.env.API_KEY;
+      const cloudName = 'daivy3qsz';
       const formData = new FormData();
       formData.append('upload_preset', 'final_project');
       formData.append('file', imageFiles[i]);
 
       try {
         const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=${apiKey}`,
+          `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=994162263426642`,
           formData
         );
 

@@ -29,7 +29,14 @@ class Home extends Base {
    * @returns Listings[]
    */
   async fetchListings() {
-    const response = await server.get<IListingsResponse>('/listings');
+    const response = await server.get<IListingsResponse>(
+      '/listings',
+      {
+        params: {
+          size: 3,
+        },
+      }
+    );
     return response.data;
   }
 

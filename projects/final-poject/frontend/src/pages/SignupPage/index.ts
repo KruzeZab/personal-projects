@@ -59,14 +59,13 @@ class Signup extends Base {
    */
   async uploadToCloudinary(image: File) {
     const cloudName = import.meta.env.CLOUD_NAME;
-    const apiKey = import.meta.env.API_KEY;
     const formData = new FormData();
     formData.append('upload_preset', 'final_project');
     formData.append('file', image);
 
     try {
       const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=${apiKey}`,
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=994162263426642`,
         formData
       );
 

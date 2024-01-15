@@ -57,6 +57,11 @@ class RealtorsPage extends Base {
 
     const realtors = await this.fetchRealtors();
 
+    if (realtors.data.length === 0) {
+      realtorWrapper.innerHTML = '<h1>No Realtors Found</h1>';
+      return;
+    }
+
     const rendered = realtors.data.map((realtor) => {
       return `<div class="card my-5 mx-3 listing-list" style="min-width: 18rem">
       <img

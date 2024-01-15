@@ -8,9 +8,7 @@
     "eslint": "eslint . --ext .ts",
     "eslint:fix": "eslint . --ext .ts --fix",
     "prettify": "prettier --write src/**/*.ts",
-    "prettify:check": "prettier --check src/**/*.ts",
-    "migration:create": "npx typeorm migration:create ./src/database/migration/",
-    "migration:generate": "npx ts-node ./node_modules/.bin/typeorm migration:generate ./src/database/migration/$name -d ./src/database/data-source.ts"
+    "prettify:check": "prettier --check src/**/*.ts"
   },
   "author": "",
   "license": "ISC",

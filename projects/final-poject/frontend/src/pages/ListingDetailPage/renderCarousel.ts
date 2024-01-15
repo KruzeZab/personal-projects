@@ -15,14 +15,19 @@ function renderCarousel(listing: IListingsProps) {
       data-ride="carousel"
     >
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img
-            class="d-block w-100"
-            src="${listing.photo_1}"
-            alt="First slide"
-            height="400px"
-          />
-        </div>
+      ${
+        listing.photo_1
+          ? `<div class="carousel-item active">
+      <img
+        class="d-block w-100"
+        src="${listing.photo_1}"
+        alt="First slide"
+        height="400px"
+      />
+    </div>`
+          : ''
+      }
+        
         ${
           listing.photo_2
             ? `<div class="carousel-item">

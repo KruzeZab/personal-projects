@@ -52,6 +52,11 @@ class SearchPage extends Base {
 
     const listings = await this.fetchListings();
 
+    if (listings.data.length === 0) {
+      listingWrapper.innerHTML = '<h1>No Listings Found</h1>';
+      return;
+    }
+
     const rendered = listings.data.map((listing) => {
       return Listing(listing);
     });
