@@ -7,6 +7,11 @@ import loggerWithNameSpace from '../util/logger';
 
 const logger = loggerWithNameSpace('ErrorHandler');
 
+/**
+ * Handle generic errors
+ * ( defined in custom error class )
+ *
+ */
 export function genericErrorHandler(
   err: Error,
   _req: Request,

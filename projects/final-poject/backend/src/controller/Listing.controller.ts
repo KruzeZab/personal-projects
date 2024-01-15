@@ -7,7 +7,19 @@ import {
   IListing,
 } from '../interface/listing';
 
+/**
+ * Listing Controller
+ *
+ */
 class ListingController {
+  /**
+   * create a new listing
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async create(req: Request, res: Response, next: NextFunction) {
     try {
       const body: IListing = req.body;
@@ -20,6 +32,15 @@ class ListingController {
       next(error);
     }
   }
+
+  /**
+   * get all listing
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async getAll(req: Request, res: Response, next: NextFunction) {
     const query = req.query;
     console.log(query);
@@ -33,6 +54,14 @@ class ListingController {
     }
   }
 
+  /**
+   * get a single listing
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async get(req: Request, res: Response, next: NextFunction) {
     const realtorId = Number(req.params.id);
     try {
@@ -43,6 +72,14 @@ class ListingController {
     }
   }
 
+  /**
+   * search through listings
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async search(req: Request, res: Response, next: NextFunction) {
     const query = req.query;
 
@@ -56,6 +93,14 @@ class ListingController {
     }
   }
 
+  /**
+   * Delete a listing
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async delete(req: Request, res: Response, next: NextFunction) {
     const id = Number(req.params.id);
     try {

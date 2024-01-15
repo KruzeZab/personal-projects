@@ -10,6 +10,14 @@ import { ILogin } from '../interface/auth';
 import { BadRequestError } from '../error';
 
 class RealtorController {
+  /**
+   * create a new realtor
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async signup(req: Request, res: Response, next: NextFunction) {
     try {
       const body: IRealtorSignup = req.body;
@@ -23,6 +31,14 @@ class RealtorController {
     }
   }
 
+  /**
+   * login realtor
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async login(req: Request, res: Response, next: NextFunction) {
     try {
       const body: ILogin = req.body;
@@ -35,6 +51,14 @@ class RealtorController {
     }
   }
 
+  /**
+   * get all realtors
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async getAll(req: Request, res: Response, next: NextFunction) {
     const query = req.query;
     try {
@@ -47,6 +71,14 @@ class RealtorController {
     }
   }
 
+  /**
+   * get a single realtor
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async get(req: Request, res: Response, next: NextFunction) {
     const realtorId = Number(req.params.id);
     try {
@@ -57,6 +89,14 @@ class RealtorController {
     }
   }
 
+  /**
+   * search for realtor
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async search(req: Request, res: Response, next: NextFunction) {
     const query = req.query;
 
@@ -70,6 +110,14 @@ class RealtorController {
     }
   }
 
+  /**
+   * get user info from token
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async getUserInfoFromToken(
     req: Request,
     res: Response,
@@ -89,6 +137,14 @@ class RealtorController {
     }
   }
 
+  /**
+   * refrehs the token
+   *
+   * @param req Request
+   * @param res Response
+   * @param next NextFunction
+   * @returns response
+   */
   static async refreshToken(req: Request, res: Response, next: NextFunction) {
     const refreshToken = req.body.refreshToken;
     if (!refreshToken) {

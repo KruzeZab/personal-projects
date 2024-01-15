@@ -58,7 +58,7 @@ class Signup extends Base {
    * @returns string
    */
   async uploadToCloudinary(image: File) {
-    const cloudName = import.meta.env.CLOUD_NAME;
+    const cloudName = 'daivy3qsz';
     const formData = new FormData();
     formData.append('upload_preset', 'final_project');
     formData.append('file', image);
