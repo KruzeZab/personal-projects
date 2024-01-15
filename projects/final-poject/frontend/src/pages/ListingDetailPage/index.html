@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Realtor Estate Agent</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="icon" href="/assets/logo.png" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <!-- font awesome cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="nav-container"></div>
+
+    <div id="jumbotron"></div>
+    <div id="message-container"></div>
+
+    <section id="property-details">
+      <div class="container">
+        <div id="property-meta"></div>
+
+        <div class="row">
+          <div id="carousel"></div>
+          <div class="property-detail mt-5">
+            <h5 class="text-center">Property Info</h5>
+
+            <!-- Fields -->
+            <div class="row mb-5 fields" id="property-fields">
+              <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-money-bill-alt"></i> Asking
+                    Price:
+                    <span class="float-right price"
+                      >Rs. {{ listing.price | intcomma }}</span
+                    >
+                  </li>
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-bed"></i> Bedrooms:
+                    <span class="float-right bed"
+                      >{{ listing.bedrooms }}</span
+                    >
+                  </li>
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-bath"></i> Bathrooms:
+                    <span class="float-right bath"
+                      >{{ listing.bathrooms }}</span
+                    >
+                  </li>
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-car"></i> Garage:
+                    <span class="float-right garage"
+                      >{{ listing.garage }}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-th-large"></i> Square Feet:
+                    <span class="float-right sqft"
+                      >{{ listing.sqft }}</span
+                    >
+                  </li>
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-square"></i> Lot Size:
+                    <span class="float-right lot"
+                      >{{ listing.lot_size }} Acres
+                    </span>
+                  </li>
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-calendar"></i> Listing Date:
+                    <span class="float-right list-date"
+                      >{{ listing.list_date }}</span
+                    >
+                  </li>
+                  <li class="list-group-item res-text-primary">
+                    <i class="fas fa-male fa-lg"></i> &nbsp; Realtor:
+                    <span class="float-right"
+                      >{{ listing.realtor }}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Realtor/Seller info -->
+          <div class="col-md-3">
+            <div id="realtor-info"></div>
+
+            <button
+              class="btn btn-danger mt-3 btn-block btn-lg"
+              data-toggle="modal"
+              data-target="#enquiry-modal"
+            >
+              Make Enquiry
+            </button>
+            <a
+              href=""
+              class="btn btn-block btn-danger mt-3"
+              id="action-btn"
+            >
+              Login To Make An Enquiry
+            </a>
+
+            <div id="realtor-contact-info"></div>
+          </div>
+        </div>
+
+        <!-- Overview -->
+        <article class="property-overview mt-5 mt-lg-0">
+          <h2>Overview</h2>
+
+          <strong>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Corrupti, laudantium quidem! Et eveniet ullam consectetur
+            optio possimus magni accusantium obcaecati. Amet iste
+            necessitatibus alias consequatur, odit modi id fugit
+            quae.Obcaecati nam architecto nemo quod aliquid, alias
+            nisi, dolores culpa consequatur exercitationem tempore,
+            voluptatem ut rerum vel veritatis commodi corporis saepe
+            voluptatibus quos repudiandae maiores! Distinctio minus
+            expedita voluptas quod!
+          </strong>
+          <br />
+          <br />
+
+          <p>{{ listing.description }}</p>
+        </article>
+        <br />
+      </div>
+    </section>
+
+    <!-- Enquiry Modal -->
+    <div id="modal-wrapper"></div>
+
+    <div
+      class="modal fade"
+      id="enquiry-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="enquiry-modal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="enquiry-modal-label">
+              Make An Enquiry
+            </h5>
+            <button type="button" class="close" data-dismiss="modal">
+              <span>x</span>
+            </button>
+          </div>
+
+          <div class="modal-body">
+            <form action="" method="POST" id="enquiry-form">
+              <div class="form-group">
+                <label for="message" class="col-form-label"
+                  >Message:</label
+                >
+                <textarea
+                  name="message"
+                  class="form-control"
+                  id="listing_message"
+                  rows="6"
+                  autofocus
+                ></textarea>
+              </div>
+              <hr />
+              <input
+                type="submit"
+                value="Send"
+                class="btn btn-block btn-secondary"
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.ts" type="module"></script>
+  </body>
+</html>

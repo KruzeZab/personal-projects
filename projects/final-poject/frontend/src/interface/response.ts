@@ -1,7 +1,7 @@
 import { IListingsProps } from './listing';
 import { IRealtors } from './realtor';
 
-interface IPageMeta {
+export interface IPageMeta {
   page: number;
   size: number;
   total: number;
@@ -15,4 +15,11 @@ export interface IListingsResponse {
 export interface IRealtorsResponse {
   data: IRealtors[];
   meta: IPageMeta;
+}
+
+export interface ILoginResponse {
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
 }

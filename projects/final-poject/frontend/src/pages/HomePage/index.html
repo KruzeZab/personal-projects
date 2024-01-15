@@ -28,7 +28,7 @@
   </head>
   <body>
     <div id="nav-container"></div>
-    <section id="showcase">
+    <section id="showacase">
       <div id="res-showcase" class="jumbotron jumbotron-fluid">
         <div class="container res-showcase-content">
           <h1>
@@ -40,13 +40,19 @@
             Search on World's No.1 Property Marketplace
           </p>
 
-          <form action="" method="GET" class="mt-2">
+          <form
+            action="../SearchPage/index.html"
+            method="GET"
+            class="mt-2"
+            id="search-form"
+          >
             <div class="row">
               <div class="col-md-8 offset-md-2">
                 <div class="form-group">
                   <input
                     type="search"
                     name="keywords"
+                    id="keywords"
                     class="form-control form-control-lg"
                     aria-describedby="keywordsHelp"
                     placeholder="Search for a land, building, property in your area...."
@@ -59,6 +65,7 @@
                 <input
                   type="search"
                   name="city"
+                  id="city"
                   class="form-control"
                   aria-describedby="cityHelp"
                   placeholder="Enter City..."
@@ -69,6 +76,7 @@
                 <select
                   class="custom-select mt-3 mt-md-0"
                   name="state"
+                  id="state"
                 >
                   <option value="">Select a State</option>
                   <option value="province-1">Province 1</option>

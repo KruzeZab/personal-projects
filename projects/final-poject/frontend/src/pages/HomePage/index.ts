@@ -1,14 +1,18 @@
 import server from '../../axios/server';
-import Footer from '../../components/Footer';
-import Header from '../../components/Header';
 import Listing from '../../components/Listing';
 import {
   IListingsResponse,
   IRealtorsResponse,
 } from '../../interface/response';
+import Base from '../../utils/Base';
 
-class Home {
+class Home extends Base {
   constructor() {
+    super();
+    this.initialize();
+  }
+
+  async initialize() {
     this.render();
   }
 
@@ -34,18 +38,6 @@ class Home {
       }
     );
     return response.data;
-  }
-
-  _renderLayout() {
-    const navContainer = document.getElementById(
-      'nav-container'
-    ) as HTMLDivElement;
-
-    const footerContainer = document.getElementById(
-      'footer-container'
-    ) as HTMLDivElement;
-    navContainer.innerHTML = Header();
-    footerContainer.innerHTML = Footer();
   }
 
   async _renderListings() {
@@ -93,7 +85,6 @@ class Home {
   }
 
   render() {
-    this._renderLayout();
     this._renderListings();
     this._renderRealtor();
   }

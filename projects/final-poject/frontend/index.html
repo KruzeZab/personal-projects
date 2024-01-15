@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Realtor Estate Agent</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <link rel="icon" href="/assets/logo.png" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <!-- font awesome cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="nav-container"></div>
+    <section id="showacase">
+      <div id="res-showcase" class="jumbotron jumbotron-fluid">
+        <div class="container res-showcase-content">
+          <h1>
+            <strong
+              >Find That Perfect Dream Home You Always Wanted.</strong
+            >
+          </h1>
+          <p class="mt-3">
+            Search on World's No.1 Property Marketplace
+          </p>
+
+          <form
+            action="src/pages/SearchPage/index.html"
+            method="GET"
+            class="mt-2"
+            id="search-form"
+          >
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <div class="form-group">
+                  <input
+                    type="search"
+                    name="keywords"
+                    id="keywords"
+                    class="form-control form-control-lg"
+                    aria-describedby="keywordsHelp"
+                    placeholder="Search for a land, building, property in your area...."
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 offset-md-2">
+                <input
+                  type="search"
+                  name="city"
+                  id="city"
+                  class="form-control"
+                  aria-describedby="cityHelp"
+                  placeholder="Enter City..."
+                  value=""
+                />
+              </div>
+              <div class="col-md-4">
+                <select
+                  class="custom-select mt-3 mt-md-0"
+                  name="state"
+                  id="state"
+                >
+                  <option value="">Select a State</option>
+                  <option value="province-1">Province 1</option>
+                  <option value="province-2">Province 2</option>
+                  <option value="province-3">Province 3</option>
+                  <option value="province-4">Province 4</option>
+                  <option value="province-5">Province 5</option>
+                  <option value="province-6">Province 6</option>
+                  <option value="province-7">Province 7</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <input
+                  type="submit"
+                  value="Search"
+                  class="form-control mt-4 btn res-search-submit"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+    <section id="new-listings" class="listings-list">
+      <div class="container">
+        <h1 class="text-center">New Listings</h1>
+        <div class="card-dec">
+          <div class="row mt-4" id="listing-wrapper"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Top Realtors -->
+    <section class="mt-5" id="top-realtors">
+      <div class="container">
+        <h1 class="text-center">New Realtors</h1>
+
+        <div class="row" id="realtor-wrapper">
+          <!-- Realtor 1 -->
+          <div class="col-md-6 col-lg-4 text-center mt-5">
+            <img src="" alt="realtor" width="80%" height="250px" />
+            <h4 class="mt-2">name</h4>
+            <p class="text-success">
+              <i class="fas fa-award"></i>
+              Realtor
+            </p>
+            <hr />
+            <p>
+              <i class="fas fa-phone res-text-primary"></i>
+              phone
+            </p>
+            <p>
+              <i class="fas fa-envelope-open res-text-primary"></i>
+              email
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="res-bg-primary text-white mt-5" id="services">
+      <div class="container">
+        <div class="row text-center">
+          <div class="col-md-4 my-2 my-lg-5">
+            <i class="fas fa-suitcase fa-4x"></i>
+            <hr />
+            <h3>Renting & Selling</h3>
+            <p>
+              With over 1 million+ homes for sale available on the
+              website, We can match you with a house you will want to
+              call home. Renting and Selling had never been so easy.
+            </p>
+          </div>
+
+          <div class="col-md-4 my-2 my-lg-5">
+            <i class="fas fa-home fa-4x"></i>
+            <hr />
+            <h3>Property Management</h3>
+            <p>
+              With filters and custom keyword search, We can help you
+              easily find a home or apartment for rent that you'll
+              love and not only that, but also we can assist you in
+              property management
+            </p>
+          </div>
+
+          <div class="col-md-4 my-2 my-lg-5">
+            <i class="fas fa-building fa-4x"></i>
+            <hr />
+            <h3>See Neighborhoods</h3>
+            <p>
+              With more neighborhood insights than any other real
+              estate website, we've captured the color and diversity
+              of communities to help you pick the best home in the
+              best nieghborhood.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+    <script src="src/main.ts" type="module"></script>
+  </body>
+</html>

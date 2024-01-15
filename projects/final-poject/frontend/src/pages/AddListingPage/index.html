@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Realtor Estate Agent</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="icon" href="/assets/logo.png" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <!-- font awesome cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="nav-container"></div>
+
+    <!-- Add Listing Form -->
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        />
+        <title>Realtor Estate Agent</title>
+        <link rel="stylesheet" href="../../style.css" />
+        <link rel="icon" href="/assets/logo.png" />
+
+        <!-- Bootstrap CSS -->
+        <link
+          rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous"
+        />
+
+        <!-- font awesome cdn -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous"
+        />
+      </head>
+      <body class="bg-light">
+        <div id="nav-container"></div>
+
+        <section class="content-wrap bg-light">
+          <div class="container pt-5 mb-5">
+            <!-- Login Form -->
+            <div id="listing-form">
+              <div class="row">
+                <div class="col-md-6 mx-auto mt-3">
+                  <div class="card mb-3">
+                    <div
+                      class="card-header res-bg-secondary text-white"
+                    >
+                      <i class="fas fa-user-plus"></i> Add Property
+                    </div>
+                    <div class="card-body">
+                      <!-- Alert goes here -->
+                      <div id="message-container"></div>
+                      <!-- Login Form -->
+                      <form
+                        action=""
+                        method="POST"
+                        id="listing-form"
+                        enctype="multipart/form-data"
+                      >
+                        <div class="form-group">
+                          <label for="title">Title:</label>
+                          <input
+                            required
+                            autofocus
+                            type="text"
+                            class="form-control"
+                            name="title"
+                            id="title"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="address">Address:</label>
+                          <input
+                            required
+                            type="text"
+                            class="form-control"
+                            name="address"
+                            id="address"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="city">City:</label>
+                          <input
+                            required
+                            type="text"
+                            class="form-control"
+                            name="city"
+                            id="city"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="state">State:</label>
+                          <select
+                            name="state"
+                            class="form-control"
+                            id="state"
+                            required
+                          >
+                            <option value="province_1">
+                              Province 1
+                            </option>
+                            <option value="province_2">
+                              Province 2
+                            </option>
+                            <option value="province_3">
+                              Province 3
+                            </option>
+                            <option value="province_4">
+                              Province 4
+                            </option>
+                            <option value="province_5">
+                              Province 5
+                            </option>
+                            <option value="province_6">
+                              Province 6
+                            </option>
+                            <option value="province_7">
+                              Province 7
+                            </option>
+                          </select>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="zipcode">Zipcode:</label>
+                          <input
+                            required
+                            type="text"
+                            class="form-control"
+                            name="zipcode"
+                            id="zipcode"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="price">Price:</label>
+                          <input
+                            required
+                            type="number"
+                            class="form-control"
+                            name="price"
+                            id="price"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="baths">Bathrooms:</label>
+                          <input
+                            required
+                            type="number"
+                            class="form-control"
+                            name="bathrooms"
+                            id="baths"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="beds">Bedrooms:</label>
+                          <input
+                            required
+                            type="number"
+                            class="form-control"
+                            name="bedrooms"
+                            id="beds"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="Garage">Garage:</label>
+                          <input
+                            required
+                            type="number"
+                            class="form-control"
+                            name="garage"
+                            id="garage"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Sqft:</label>
+                          <input
+                            required
+                            type="number"
+                            class="form-control"
+                            name="sqft"
+                            id="sqft"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="lot_size">Lot Size:</label>
+                          <input
+                            required
+                            type="number"
+                            class="form-control"
+                            name="lot_size"
+                            id="lot_size"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="description"
+                            >Description:</label
+                          >
+                          <textarea
+                            required
+                            class="form-control"
+                            name="description"
+                            id="description"
+                            rows="10"
+                          ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Photo main:</label>
+                          <input
+                            required
+                            type="file"
+                            class="form-control"
+                            name="photo_main"
+                            id="photo_main"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Photo 1:</label>
+                          <input
+                            type="file"
+                            class="form-control"
+                            name="photo_1"
+                            id="photo_1"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Photo 2:</label>
+                          <input
+                            type="file"
+                            class="form-control"
+                            name="photo_2"
+                            id="photo_2"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Photo 3:</label>
+                          <input
+                            type="file"
+                            class="form-control"
+                            name="photo_3"
+                            id="photo_3"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Photo 4:</label>
+                          <input
+                            type="file"
+                            class="form-control"
+                            name="photo_4"
+                            id="photo_4"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Photo 5:</label>
+                          <input
+                            type="file"
+                            class="form-control"
+                            name="photo_5"
+                            id="photo_5"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="sqft">Photo 6:</label>
+                          <input
+                            type="file"
+                            class="form-control"
+                            name="photo_6"
+                            id="photo_6"
+                          />
+                        </div>
+
+                        <input
+                          type="submit"
+                          value="Submit"
+                          class="btn btn-block res-bg-secondary text-white"
+                        />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div id="footer-container"></div>
+
+        <script src="index.ts" type="module"></script>
+      </body>
+    </html>
+
+    <div id="footer-container"></div>
+
+    <script src="index.ts" type="module"></script>
+  </body>
+</html>
