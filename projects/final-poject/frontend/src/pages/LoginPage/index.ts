@@ -4,16 +4,26 @@ import { ILoginResponse } from '../../interface/response';
 import { renderAlert } from '../../utils';
 import Base from '../../utils/Base';
 
+/**
+ * Login Page
+ *
+ */
 class Login extends Base {
   loginForm: HTMLElement;
 
   constructor() {
     super();
-    this.loginForm = document.getElementById('form-login')!;
 
+    // grab login form add attach listener
+    this.loginForm = document.getElementById('form-login')!;
     this.loginForm.addEventListener('submit', this.login);
   }
 
+  /**
+   * handle when user logs in
+   *
+   * @param event Event
+   */
   login = async (event: Event) => {
     event.preventDefault();
     const email =

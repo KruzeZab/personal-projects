@@ -6,6 +6,10 @@ import {
   logout,
 } from '.';
 
+/**
+ * Base class for all our classes
+ *
+ */
 class Base {
   user: any;
 
@@ -13,6 +17,10 @@ class Base {
     this.initializeBase();
   }
 
+  /**
+   * Initialize the elements on every page changes
+   *
+   */
   async initializeBase() {
     await this.getUser();
     this.renderLayout();
@@ -20,6 +28,10 @@ class Base {
     logoutBtn?.addEventListener('click', logout);
   }
 
+  /**
+   * Get the user
+   *
+   */
   async getUser() {
     try {
       const tokens = getAuthTokens();
@@ -32,14 +44,15 @@ class Base {
       }
     } catch (error) {
       this.user = false;
-      // Handle error
       console.error('Error fetching user:', error);
     }
   }
 
+  /**
+   * render layouts into the page
+   */
   renderLayout() {
-    renderHeader(!!this.user);
-
+    renderHeader(this.user);
     renderFooter();
   }
 }

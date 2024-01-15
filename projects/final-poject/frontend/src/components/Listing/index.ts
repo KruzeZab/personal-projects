@@ -1,9 +1,16 @@
+import { ROUTES } from '../../constants';
 import { IListingsProps } from '../../interface/listing';
 
+/**
+ * render the listing item into the DOM
+ *
+ * @param props IListingProps
+ * @returns DOM
+ */
 function Listing(props: IListingsProps) {
   const {
     title,
-    photo_main,
+    photo_1,
     price,
     bedrooms,
     bathrooms,
@@ -12,12 +19,13 @@ function Listing(props: IListingsProps) {
     city,
     state,
     zipcode,
+    id,
   } = props;
 
   return `<div class="col-md-6 col-lg-4 mt-5" style="min-width: 21rem">
   <div class="card">
       <div class="card-img-wrapper">
-          <img class="card-img-top" src="${photo_main}" alt="house image" width="200px" height="200px">
+          <img class="card-img-top" src="${photo_1}" alt="house image" width="200px" height="200px">
       </div>
       <div class="card-img-overlay">
           <h3 class="card-title">
@@ -27,7 +35,7 @@ function Listing(props: IListingsProps) {
           </h3>
       </div>
   <div class="card-body">
-      <a href="{% url 'listings:listing' listing.id %}" class="stretched-link">
+      <a href="${ROUTES.ListingDetailPage}?id=${id}" class="stretched-link">
           <h4 class="card-title text-center res-text-primary">
               ${title}
           </h4>

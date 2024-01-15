@@ -1,6 +1,17 @@
 import { IListingsProps } from '../../interface/listing';
 
-function renderRealtorContact(listing: IListingsProps) {
+/**
+ * render contact info
+ *
+ * @param listing IListingProps
+ * @param user
+ * @param deleteListing () => Promise<void>
+ */
+function renderRealtorContact(
+  listing: IListingsProps,
+  user: any,
+  deleteListing: () => Promise<void>
+) {
   const contactInfo = document.getElementById(
     'realtor-contact-info'
   )!;
@@ -28,7 +39,21 @@ function renderRealtorContact(listing: IListingsProps) {
       >${listing.realtor.website}</a
     >
   </p>
+  ${
+    listing.realtor.id === user.id
+      ? `<button class="btn btn-danger btn-block mb-4" id="delete-listing">
+        Delete Listing
+      </button>`
+      : ''
+  }
+  
 </div>`;
+
+  // Attach a click event listener to the dynamically created button
+  if (listing.realtor.id === user.id) {
+    const deleteButton = contactInfo.querySelector('#delete-listing');
+    deleteButton?.addEventListener('click', deleteListing);
+  }
 }
 
 export default renderRealtorContact;

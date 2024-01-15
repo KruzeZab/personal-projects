@@ -4,17 +4,27 @@ import { renderAlert } from '../../utils';
 import Base from '../../utils/Base';
 import { ROUTES } from '../../constants';
 
+/**
+ * Add Listing class
+ *
+ */
 class AddListingPage extends Base {
   constructor() {
     super();
+    // Get the listing form and attach listener
     const listingForm = document.querySelector('#listing-form')!;
     listingForm.addEventListener('submit', this.addListing);
   }
 
+  /**
+   * handle when form is submiited
+   * @param e Event
+   */
   addListing = async (e: Event) => {
     e.preventDefault();
     try {
       const form = new FormData(e.target as HTMLFormElement);
+      // All photos in the form
       const photosEl = [
         'photo_1',
         'photo_2',
@@ -24,12 +34,16 @@ class AddListingPage extends Base {
         'photo_6',
         'photo_7',
       ];
+      // Initialize form values
       let formValues: any = {
         realtorId: Number(this.user.id),
       };
 
+      // store photos
       const photos: File[] = [];
 
+      // Store into the photo if is file
+      // else add it to formValues
       form.forEach((value, key) => {
         if (photosEl.includes(key)) {
           if (value instanceof File && value.name) {
@@ -40,10 +54,13 @@ class AddListingPage extends Base {
         }
       });
 
+      // Upload to the cloudinary
       const uploadedImages = await this.uploadToCloudinary(photos);
 
+      // Create photoUrls object
       const photoUrls = Object.assign({}, ...uploadedImages);
 
+      // add to the formValues
       formValues = {
         ...formValues,
         ...photoUrls,
@@ -53,8 +70,10 @@ class AddListingPage extends Base {
         '/listings/create',
         formValues
       );
+      // get the newly created listing id
       const id = response.data.data.id;
       renderAlert('Listing created successfully!', 'success');
+      // navigate to listing page
       window.location.href = `${ROUTES.ListingDetailPage}?id=${id}`;
     } catch (error) {
       console.error('Error adding listing:', error);
@@ -62,18 +81,25 @@ class AddListingPage extends Base {
     }
   };
 
+  /**
+   * upload the form images to cloudinary
+   *
+   * @param imageFiles File[]
+   * @returns any[]
+   */
   async uploadToCloudinary(imageFiles: File[]) {
     const results = [];
 
     for (let i = 0; i < imageFiles.length; i++) {
       const cloudName = import.meta.env.CLOUD_NAME;
+      const apiKey = import.meta.env.API_KEY;
       const formData = new FormData();
       formData.append('upload_preset', 'final_project');
       formData.append('file', imageFiles[i]);
 
       try {
         const response = await axios.post(
-          `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=994162263426642`,
+          `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=${apiKey}`,
           formData
         );
 

@@ -45,12 +45,21 @@ class ListingController {
 
   static async search(req: Request, res: Response, next: NextFunction) {
     const query = req.query;
-    console.log(req.query);
 
     try {
       const data = await ListingService.search(
         query as unknown as GetSearchListingQuery,
       );
+      return res.json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    const id = Number(req.params.id);
+    try {
+      const data = await ListingService.delete(id);
       return res.json(data);
     } catch (error) {
       next(error);

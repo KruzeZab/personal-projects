@@ -1,10 +1,14 @@
 import { IListingsProps } from '../../interface/listing';
 
+/**
+ * render the carousel
+ *
+ * @param listing IListingProps
+ */
 function renderCarousel(listing: IListingsProps) {
   const carousel = document.getElementById('carousel')!;
 
-  carousel.innerHTML = `<div class="col-md-9">
-    <!-- Carousel Image -->
+  carousel.innerHTML = `
     <div
       id="carouselExampleControls"
       class="carousel slide"
@@ -14,13 +18,13 @@ function renderCarousel(listing: IListingsProps) {
         <div class="carousel-item active">
           <img
             class="d-block w-100"
-            src="${listing.photo_main}"
+            src="${listing.photo_1}"
             alt="First slide"
             height="400px"
           />
         </div>
         ${
-          listing.photo_1
+          listing.photo_2
             ? `<div class="carousel-item">
                 <img
                   class="d-block w-100"
@@ -32,7 +36,7 @@ function renderCarousel(listing: IListingsProps) {
             : ''
         }
         ${
-          listing.photo_2
+          listing.photo_3
             ? `<div class="carousel-item">
                 <img
                   class="d-block w-100"
@@ -44,7 +48,7 @@ function renderCarousel(listing: IListingsProps) {
             : ''
         }
         ${
-          listing.photo_3
+          listing.photo_4
             ? `<div class="carousel-item">
                 <img
                   class="d-block w-100"
@@ -56,7 +60,7 @@ function renderCarousel(listing: IListingsProps) {
             : ''
         }
         ${
-          listing.photo_4
+          listing.photo_5
             ? `<div class="carousel-item">
                 <img
                   class="d-block w-100"
@@ -68,7 +72,7 @@ function renderCarousel(listing: IListingsProps) {
             : ''
         }
         ${
-          listing.photo_5
+          listing.photo_6
             ? `<div class="carousel-item">
                 <img
                   class="d-block w-100"
@@ -80,7 +84,7 @@ function renderCarousel(listing: IListingsProps) {
             : ''
         }
         ${
-          listing.photo_6
+          listing.photo_7
             ? `<div class="carousel-item">
               <img
                 class="d-block w-100"

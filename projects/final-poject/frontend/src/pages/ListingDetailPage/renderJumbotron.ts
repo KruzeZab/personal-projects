@@ -1,5 +1,10 @@
 import { IListingsProps } from '../../interface/listing';
 
+/**
+ * render the jumbotron
+ *
+ * @param listing IListingProps
+ */
 function renderJumbotron(listing: IListingsProps) {
   const jumbotron = document.getElementById('jumbotron')!;
   jumbotron.innerHTML = `<section id="showcase">

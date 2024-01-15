@@ -3,7 +3,12 @@ import { ROUTES } from '../constants';
 import { IListingPagination } from '../interface/listing';
 import { IRealtorPagination } from '../interface/realtor';
 
-export function renderHeader(authenticated: boolean = false) {
+/**
+ * render header element
+ * @param user
+ *
+ */
+export function renderHeader(user: any) {
   const navContainer = document.getElementById(
     'nav-container'
   ) as HTMLDivElement;
@@ -43,7 +48,7 @@ export function renderHeader(authenticated: boolean = false) {
 
         <!-- Login and Register -->
         ${
-          !authenticated
+          !!!user
             ? `<div class="d-flex order-lg-1 ml-auto mr-4 right-side">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -66,7 +71,7 @@ export function renderHeader(authenticated: boolean = false) {
             : ''
         }
         ${
-          authenticated
+          !!user
             ? `
         <div class="d-flex order-lg-1 ml-auto mr-4 right-side">
         <ul class="navbar-nav">
@@ -128,7 +133,7 @@ export function renderHeader(authenticated: boolean = false) {
               >
             </li>
             ${
-              authenticated
+              !!user
                 ? `
           <li class="nav-item">
           <a
@@ -147,6 +152,10 @@ export function renderHeader(authenticated: boolean = false) {
     </nav>`;
 }
 
+/**
+ * renders the footer
+ *
+ */
 export function renderFooter() {
   const footerContainer = document.getElementById(
     'footer-container'
@@ -164,6 +173,12 @@ export function renderFooter() {
   </footer>`;
 }
 
+/**
+ * render alert
+ *
+ * @param message string
+ * @param level string
+ */
 export function renderAlert(message: string = '', level = 'info') {
   const messageContainer = document.getElementById(
     'message-container'
@@ -179,6 +194,11 @@ export function renderAlert(message: string = '', level = 'info') {
       </div>`;
 }
 
+/**
+ * renders the pagination for listing
+ *
+ * @param query query object containing pagination details
+ */
 export function renderListingPagination(query: IListingPagination) {
   const page = Number(query.page);
   const size = Number(query.size);
@@ -203,6 +223,11 @@ export function renderListingPagination(query: IListingPagination) {
   }
 }
 
+/**
+ * renders the pagination for realtors
+ *
+ * @param query query object containing pagination details
+ */
 export function renderRealtorPagination(query: IRealtorPagination) {
   const page = Number(query.page);
   const size = Number(query.size);
@@ -225,12 +250,23 @@ export function renderRealtorPagination(query: IRealtorPagination) {
   }
 }
 
+/**
+ * get the auth tokens from local storage
+ *
+ * @returns tokens{} or null
+ */
 export function getAuthTokens() {
   const tokens = localStorage.getItem('authTokens');
   if (!tokens) return null;
   return JSON.parse(tokens);
 }
 
+/**
+ * check the access token from the server
+ *
+ * @param accessToken string
+ * @returns User
+ */
 export async function checkUser(accessToken: string) {
   const response = await server.get('/realtors/detail', {
     params: {
@@ -240,6 +276,12 @@ export async function checkUser(accessToken: string) {
   return response.data;
 }
 
+/**
+ * formats the date into readable format
+ *
+ * @param dateString string
+ * @returns date object
+ */
 export function formatDate(dateString: string) {
   const dateObject = new Date(dateString);
 
@@ -247,6 +289,11 @@ export function formatDate(dateString: string) {
   return dateObject.toLocaleDateString(undefined, options);
 }
 
+/**
+ * logs out the user by clearing token
+ *
+ * @param e Event
+ */
 export function logout(e: Event) {
   e.preventDefault();
   localStorage.removeItem('authTokens');

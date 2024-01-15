@@ -12,6 +12,7 @@ router.post(
 );
 
 router.get('/search', ListingController.search);
+router.post('/:id/delete', ListingController.delete);
 
 router.get('/:id', ListingController.get);
 router.get('/', ListingController.getAll);

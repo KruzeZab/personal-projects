@@ -5,12 +5,18 @@ import { IListingsResponse } from '../../interface/response';
 import { renderListingPagination } from '../../utils';
 import Base from '../../utils/Base';
 
+/**
+ * Search page
+ *
+ */
 class SearchPage extends Base {
   query: IQuery;
   constructor() {
     super();
+    // get search query params
     const urlParams = new URLSearchParams(window.location.search);
 
+    // Construct query object
     this.query = {
       title: urlParams.get('title') || '',
       city: urlParams.get('city') || '',
@@ -20,6 +26,11 @@ class SearchPage extends Base {
     this.render();
   }
 
+  /**
+   * fetch listings from the server
+   *
+   * @returns Listings[]
+   */
   async fetchListings() {
     const response = await server.get<IListingsResponse>(
       '/listings/search',
@@ -30,6 +41,10 @@ class SearchPage extends Base {
     return response.data;
   }
 
+  /**
+   * renders the listings
+   *
+   */
   async renderListings() {
     const listingWrapper = document.getElementById(
       'search-listing'
@@ -49,6 +64,10 @@ class SearchPage extends Base {
     });
   }
 
+  /**
+   * main render method
+   *
+   */
   render() {
     this.renderListings();
   }

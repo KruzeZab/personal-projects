@@ -1,20 +1,28 @@
 import axios from 'axios';
 import server from '../../axios/server';
 import { ROUTES } from '../../constants';
-import { renderAlert, renderFooter, renderHeader } from '../../utils';
+import { renderAlert } from '../../utils';
+import Base from '../../utils/Base';
 
-class Signup {
+/**
+ * Signup page
+ *
+ */
+class Signup extends Base {
   signupForm: HTMLElement;
 
   constructor() {
-    renderHeader();
-    renderFooter();
-
+    super();
+    // Attach the listener to form
     this.signupForm = document.getElementById('register-form')!;
-
     this.signupForm.addEventListener('submit', this.signup);
   }
 
+  /**
+   * creates user
+   *
+   * @param event Event
+   */
   signup = async (event: Event) => {
     event.preventDefault();
 
@@ -43,15 +51,22 @@ class Signup {
     }
   };
 
+  /**
+   * upload the form image to cloudinary
+   *
+   * @param image File
+   * @returns string
+   */
   async uploadToCloudinary(image: File) {
     const cloudName = import.meta.env.CLOUD_NAME;
+    const apiKey = import.meta.env.API_KEY;
     const formData = new FormData();
     formData.append('upload_preset', 'final_project');
     formData.append('file', image);
 
     try {
       const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=994162263426642`,
+        `https://api.cloudinary.com/v1_1/${cloudName}/upload?api_key=${apiKey}`,
         formData
       );
 

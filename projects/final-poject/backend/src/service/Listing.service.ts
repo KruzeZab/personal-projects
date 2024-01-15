@@ -72,6 +72,24 @@ class ListingService {
     }
   }
 
+  static async delete(listingId: number) {
+    try {
+      const listing = await Listing.findOneBy({ id: listingId });
+
+      if (!listing) {
+        throw new BadRequestError('Listing not found');
+      }
+
+      await Listing.remove(listing);
+
+      return {
+        message: 'Listing deleted successfully!',
+      };
+    } catch (error) {
+      throw new BadRequestError('Error deleting listing: ' + error);
+    }
+  }
+
   static async search(query: GetSearchListingQuery) {
     const { page, size, title, city, state } = query;
 

@@ -79,7 +79,7 @@ nav ul li a:hover {
 /* showcase */
 #res-showcase {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('./assets/house_6.jpg');
+    url('/src/assets/house_6.jpg');
   background-position: center !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
@@ -230,7 +230,7 @@ form input[type='search']:focus:not(.realtor-search),
 
 .home-listing {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url('/assets/house/house_6.jpg') !important;
+    url('/src/assets/house_6.jpg') !important;
   height: 25rem !important;
 }
 

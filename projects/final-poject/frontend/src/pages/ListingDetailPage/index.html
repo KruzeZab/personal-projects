@@ -37,90 +37,61 @@
         <div id="property-meta"></div>
 
         <div class="row">
-          <div id="carousel"></div>
-          <div class="property-detail mt-5">
-            <h5 class="text-center">Property Info</h5>
+          <div class="col-md-9">
+            <div id="carousel"></div>
+            <div class="property-detail mt-5">
+              <h5 class="text-center">Property Info</h5>
 
-            <!-- Fields -->
-            <div class="row mb-5 fields" id="property-fields">
-              <div class="col-md-6">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-money-bill-alt"></i> Asking
-                    Price:
-                    <span class="float-right price"
-                      >Rs. {{ listing.price | intcomma }}</span
-                    >
-                  </li>
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-bed"></i> Bedrooms:
-                    <span class="float-right bed"
-                      >{{ listing.bedrooms }}</span
-                    >
-                  </li>
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-bath"></i> Bathrooms:
-                    <span class="float-right bath"
-                      >{{ listing.bathrooms }}</span
-                    >
-                  </li>
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-car"></i> Garage:
-                    <span class="float-right garage"
-                      >{{ listing.garage }}
-                    </span>
-                  </li>
-                </ul>
-              </div>
-              <div class="col-md-6">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-th-large"></i> Square Feet:
-                    <span class="float-right sqft"
-                      >{{ listing.sqft }}</span
-                    >
-                  </li>
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-square"></i> Lot Size:
-                    <span class="float-right lot"
-                      >{{ listing.lot_size }} Acres
-                    </span>
-                  </li>
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-calendar"></i> Listing Date:
-                    <span class="float-right list-date"
-                      >{{ listing.list_date }}</span
-                    >
-                  </li>
-                  <li class="list-group-item res-text-primary">
-                    <i class="fas fa-male fa-lg"></i> &nbsp; Realtor:
-                    <span class="float-right"
-                      >{{ listing.realtor }}
-                    </span>
-                  </li>
-                </ul>
+              <!-- Fields -->
+              <div class="row mb-5 fields" id="property-fields">
+                <div class="col-md-6">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-money-bill-alt"></i> Asking
+                      Price:
+                      <span class="float-right price"></span>
+                    </li>
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-bed"></i> Bedrooms:
+                      <span class="float-right bed"></span>
+                    </li>
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-bath"></i> Bathrooms:
+                      <span class="float-right bath"></span>
+                    </li>
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-car"></i> Garage:
+                      <span class="float-right garage"> </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-th-large"></i> Square Feet:
+                      <span class="float-right sqft"></span>
+                    </li>
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-square"></i> Lot Size:
+                      <span class="float-right lot"> </span>
+                    </li>
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-calendar"></i> Listing Date:
+                      <span class="float-right list-date"></span>
+                    </li>
+                    <li class="list-group-item res-text-primary">
+                      <i class="fas fa-male fa-lg"></i> &nbsp;
+                      Realtor:
+                      <span class="float-right"> </span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-
-          <!-- Realtor/Seller info -->
           <div class="col-md-3">
+            <!-- Realtor/Seller info -->
             <div id="realtor-info"></div>
-
-            <button
-              class="btn btn-danger mt-3 btn-block btn-lg"
-              data-toggle="modal"
-              data-target="#enquiry-modal"
-            >
-              Make Enquiry
-            </button>
-            <a
-              href=""
-              class="btn btn-block btn-danger mt-3"
-              id="action-btn"
-            >
-              Login To Make An Enquiry
-            </a>
 
             <div id="realtor-contact-info"></div>
           </div>
@@ -128,23 +99,10 @@
 
         <!-- Overview -->
         <article class="property-overview mt-5 mt-lg-0">
-          <h2>Overview</h2>
-
-          <strong>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Corrupti, laudantium quidem! Et eveniet ullam consectetur
-            optio possimus magni accusantium obcaecati. Amet iste
-            necessitatibus alias consequatur, odit modi id fugit
-            quae.Obcaecati nam architecto nemo quod aliquid, alias
-            nisi, dolores culpa consequatur exercitationem tempore,
-            voluptatem ut rerum vel veritatis commodi corporis saepe
-            voluptatibus quos repudiandae maiores! Distinctio minus
-            expedita voluptas quod!
-          </strong>
           <br />
           <br />
 
-          <p>{{ listing.description }}</p>
+          <p id="listing-description"></p>
         </article>
         <br />
       </div>

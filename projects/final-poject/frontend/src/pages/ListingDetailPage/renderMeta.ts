@@ -1,5 +1,10 @@
 import { IListingsProps } from '../../interface/listing';
 
+/**
+ * render meta info
+ *
+ * @param listing IListingProps
+ */
 function renderMeta(listing: IListingsProps) {
   const propertyMeta = document.getElementById('property-meta')!;
 

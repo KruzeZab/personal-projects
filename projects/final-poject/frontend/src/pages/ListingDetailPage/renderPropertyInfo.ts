@@ -1,6 +1,11 @@
 import { IListingsProps } from '../../interface/listing';
 import { formatDate } from '../../utils';
 
+/**
+ * render property info
+ *
+ * @param listing IListingProps
+ */
 function renderPropertyInfo(listing: IListingsProps) {
   const fields = document.getElementById('property-fields')!;
   fields.innerHTML = `<div class="col-md-6">

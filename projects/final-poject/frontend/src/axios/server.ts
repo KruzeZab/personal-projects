@@ -1,22 +1,29 @@
 import axios from 'axios';
 
+/**
+ * Instantiate axios
+ *
+ */
 const server = axios.create({
   baseURL: 'http://localhost:8000',
 });
 
 let tokens: { accessToken?: string } | null = null;
-let tokensRetrieved = false;
 
+/**
+ * Retrieve tokens
+ *
+ */
 const retrieveTokens = () => {
-  if (!tokensRetrieved) {
-    const tokensString = localStorage.getItem('authTokens');
-    if (tokensString) {
-      tokens = JSON.parse(tokensString);
-    }
-    tokensRetrieved = true;
+  const tokensString = localStorage.getItem('authTokens');
+  if (tokensString) {
+    tokens = JSON.parse(tokensString);
   }
 };
 
+/**
+ * Inteceptor to check authentication from access token
+ */
 server.interceptors.request.use(
   (config) => {
     retrieveTokens();

@@ -1,11 +1,16 @@
 import { IListingsProps } from '../../interface/listing';
 
+/**
+ * render realtor info
+ *
+ * @param listing IListingProps
+ */
 function renderRealtorInfo(listing: IListingsProps) {
   const realtorInfo = document.getElementById('realtor-info')!;
   realtorInfo.innerHTML = `<div class="card">
     <img
       class="card-img-top"
-      src=""
+      src="${listing.realtor.photo}"
       alt="Card image cap"
       height="200px"
       class="r_photo_main"

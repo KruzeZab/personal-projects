@@ -4,13 +4,18 @@ import { IRealtorsResponse } from '../../interface/response';
 import { renderRealtorPagination } from '../../utils';
 import Base from '../../utils/Base';
 
+/**
+ * Realtors Page
+ */
 class RealtorsPage extends Base {
   query: IQuery;
 
   constructor() {
     super();
+    // Get the url search params
     const urlParams = new URLSearchParams(window.location.search);
 
+    // Construct query
     this.query = {
       username: urlParams.get('username') || '',
       page: Number(urlParams.get('page')) || 1,
@@ -18,10 +23,19 @@ class RealtorsPage extends Base {
     this.initialize();
   }
 
+  /**
+   * Initializes our app
+   *
+   */
   async initialize() {
     this.render();
   }
 
+  /**
+   * fetch realtors from the server
+   *
+   * @returns Realtors[]
+   */
   async fetchRealtors() {
     const response = await server.get<IRealtorsResponse>(
       '/realtors/search',
@@ -32,6 +46,10 @@ class RealtorsPage extends Base {
     return response.data;
   }
 
+  /**
+   * renders realtors
+   *
+   */
   async renderRealtors() {
     const realtorWrapper = document.getElementById(
       'realtor-wrapper'
@@ -69,12 +87,17 @@ class RealtorsPage extends Base {
 
     realtorWrapper.innerHTML = rendered.join(' ');
 
+    // render pagination
     renderRealtorPagination({
       ...this.query,
       ...realtors.meta,
     });
   }
 
+  /**
+   * main redner method
+   *
+   */
   render() {
     this.renderRealtors();
   }
