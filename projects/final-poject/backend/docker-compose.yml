@@ -5,10 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: nodejs_app
+    container_name: final-project
     working_dir: /app
     ports:
       - "8000:8000"
+    depends_on:
+    - postgres
     environment:
       NODE_ENV: development
       SERVER_PORT: 8000
@@ -16,17 +18,16 @@ services:
       REFRESH_TOKEN_SECRET: 'refresh_token_secret'
       DB_CLIENT: 'pg'
       DB_NAME: 'realestate'
-      DB_HOST: 'localhost'
+      DB_HOST: 'postgres'
       DB_USERNAME: 'postgres'
       DB_PASSWORD: 'postgres'
       DB_PORT: '5432'
-    depends_on:
-      - postgres
+    
 
   postgres:
     image: postgres:16.1
-    container_name: postgres_db
+    container_name: final_postgres_db
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: node-tasks
+      POSTGRES_DB: realestate
